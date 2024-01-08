@@ -21,7 +21,10 @@ namespace BananaPlatforms
         private bool WasLPressed;
         public Vector3 LHand;
         public Vector3 RHand;
-
+        public bool LButton;
+        public bool RButton;
+        public bool LButton2;
+        public bool RButton2;
 
         void Start()
         {
@@ -79,24 +82,18 @@ namespace BananaPlatforms
             RHand = GorillaLocomotion.Player.Instance.rightControllerTransform.position;
             LGrip = ControllerInputPoller.instance.leftGrab;
             RGrip = ControllerInputPoller.instance.rightGrab;
+            RButton = ControllerInputPoller.instance.rightControllerPrimaryButton;
+            LButton = ControllerInputPoller.instance.leftControllerPrimaryButton;
+            RButton2 = ControllerInputPoller.instance.rightControllerSecondaryButton;
+            LButton2 = ControllerInputPoller.instance.leftControllerSecondaryButton;
             if (inRoom)
             {
-                if (!WasRPressed && RGrip)
-                {
-                    Appear(RBanana, RHand);
-                }
-                else if (!RGrip)
-                {
-                    Disappear(RBanana);
-                }
-                if (!WasLPressed && LGrip)
-                {
-                    Appear(LBanana, LHand);
-                }
-                else if (!LGrip)
-                {
-                    Disappear(LBanana);
-                }
+                if (!WasRPressed && RGrip) { Appear(RBanana, RHand); } else if (!RGrip) { Disappear(RBanana); }
+                if (!WasLPressed && LGrip) { Appear(LBanana, LHand); } else if (!LGrip) { Disappear(LBanana); }
+                if (RButton && RGrip) { RBanana.transform.localScale = new Vector3(0.07f, 0.07f, 0.07f); }
+                if (LButton && LGrip) { LBanana.transform.localScale = new Vector3(0.07f, 0.07f, 0.07f); }
+                if (RButton2 && RGrip) { RBanana.transform.localScale = new Vector3(0.03f, 0.03f, 0.03f); }
+                if (LButton2 && LGrip) { LBanana.transform.localScale = new Vector3(0.03f, 0.03f, 0.03f); }
             }
             WasLPressed = LGrip;
             WasRPressed = RGrip;
